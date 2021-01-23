@@ -445,7 +445,8 @@ Harikrishna Vemula
 </div>
 <div id="section" class="slide section level2">
 <h1></h1>
-<p><strong>Introduction</strong> This is Coursera’s Week 4 Assignment of Developing Data Products course. I have created a shiny web application using R Studio and deployed it in shiny server inorder to review by peers. I am also sharing the code in following github url for peers referance.</p>
+<p><strong>Introduction</strong> This is Coursera’s Week 4 Assignment of Developing Data Products course. I have created a shiny web application using R Studio and deployed it in shiny server inorder to review by peers.</p>
+<p>I am also sharing the code in following github url for peers referance. <a href="https://github.com/HarikrishnaVemula/Developing-Data-Products-Week-4-Assignment" class="uri">https://github.com/HarikrishnaVemula/Developing-Data-Products-Week-4-Assignment</a></p>
 <p><strong>Objective</strong></p>
 <p>This shiny app demonstrating you how can we plot <strong>mpg vs variables</strong> from mtcars dataset.</p>
 </div>
@@ -465,27 +466,29 @@ Harikrishna Vemula
 <h1>Code</h1>
 <p><strong>UI CODE</strong></p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">library</span>(shiny)</a>
-<a class="sourceLine" id="cb3-2" title="2"><span class="kw">shinyUI</span>(<span class="kw">fluidPage</span>(</a>
-<a class="sourceLine" id="cb3-3" title="3">  </a>
-<a class="sourceLine" id="cb3-4" title="4">  <span class="co"># Application title</span></a>
-<a class="sourceLine" id="cb3-5" title="5">  <span class="kw">titlePanel</span>(<span class="st">&quot;MPG Vs Variables&quot;</span>),</a>
-<a class="sourceLine" id="cb3-6" title="6">  </a>
-<a class="sourceLine" id="cb3-7" title="7">  <span class="kw">sidebarPanel</span>(</a>
-<a class="sourceLine" id="cb3-8" title="8">    </a>
-<a class="sourceLine" id="cb3-9" title="9">    <span class="kw">selectInput</span>(<span class="st">&quot;variable&quot;</span>, <span class="st">&quot;Variable:&quot;</span>, </a>
-<a class="sourceLine" id="cb3-10" title="10">                <span class="kw">c</span>(<span class="st">&quot;Cylinders&quot;</span> =<span class="st"> &quot;cyl&quot;</span>,</a>
-<a class="sourceLine" id="cb3-11" title="11">                  <span class="st">&quot;Gears&quot;</span> =<span class="st"> &quot;gr&quot;</span>,</a>
-<a class="sourceLine" id="cb3-12" title="12">                  <span class="st">&quot;Transmission&quot;</span> =<span class="st"> &quot;am&quot;</span>))</a>
-<a class="sourceLine" id="cb3-13" title="13">  ),</a>
-<a class="sourceLine" id="cb3-14" title="14">  </a>
-<a class="sourceLine" id="cb3-15" title="15">  <span class="kw">mainPanel</span>(</a>
-<a class="sourceLine" id="cb3-16" title="16">    <span class="co"># Output: Formatted text for caption ----</span></a>
-<a class="sourceLine" id="cb3-17" title="17">    <span class="kw">h3</span>(<span class="kw">textOutput</span>(<span class="st">&quot;caption&quot;</span>)),</a>
-<a class="sourceLine" id="cb3-18" title="18">    </a>
-<a class="sourceLine" id="cb3-19" title="19">    <span class="co"># Output: Plot of the requested variable against mpg ----</span></a>
-<a class="sourceLine" id="cb3-20" title="20">    <span class="kw">plotOutput</span>(<span class="st">&quot;mpgPlot&quot;</span>)</a>
-<a class="sourceLine" id="cb3-21" title="21">  )</a>
-<a class="sourceLine" id="cb3-22" title="22">))</a></code></pre></div>
+<a class="sourceLine" id="cb3-2" title="2"></a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="kw">shinyUI</span>(<span class="kw">fluidPage</span>(</a>
+<a class="sourceLine" id="cb3-4" title="4">  </a>
+<a class="sourceLine" id="cb3-5" title="5">  <span class="co"># Application title</span></a>
+<a class="sourceLine" id="cb3-6" title="6">  <span class="kw">titlePanel</span>(<span class="st">&quot;MPG Vs Variables&quot;</span>),</a>
+<a class="sourceLine" id="cb3-7" title="7">  </a>
+<a class="sourceLine" id="cb3-8" title="8">  <span class="kw">sidebarPanel</span>(</a>
+<a class="sourceLine" id="cb3-9" title="9">    </a>
+<a class="sourceLine" id="cb3-10" title="10">    <span class="kw">selectInput</span>(<span class="st">&quot;variable&quot;</span>, <span class="st">&quot;Variable:&quot;</span>, </a>
+<a class="sourceLine" id="cb3-11" title="11">                <span class="kw">c</span>(<span class="st">&quot;Number of cylinders&quot;</span> =<span class="st"> &quot;cyl&quot;</span>,</a>
+<a class="sourceLine" id="cb3-12" title="12">                  <span class="st">&quot;Number of forward gears&quot;</span> =<span class="st"> &quot;gear&quot;</span>,</a>
+<a class="sourceLine" id="cb3-13" title="13">                  <span class="st">&quot;Transmission&quot;</span> =<span class="st"> &quot;am&quot;</span>,</a>
+<a class="sourceLine" id="cb3-14" title="14">                  <span class="st">&quot;Gross horsepower&quot;</span> =<span class="st"> &quot;hp&quot;</span>))</a>
+<a class="sourceLine" id="cb3-15" title="15">  ),</a>
+<a class="sourceLine" id="cb3-16" title="16">  </a>
+<a class="sourceLine" id="cb3-17" title="17">  <span class="kw">mainPanel</span>(</a>
+<a class="sourceLine" id="cb3-18" title="18">    <span class="co"># Output: Formatted text for caption ----</span></a>
+<a class="sourceLine" id="cb3-19" title="19">    <span class="kw">h3</span>(<span class="kw">textOutput</span>(<span class="st">&quot;caption&quot;</span>)),</a>
+<a class="sourceLine" id="cb3-20" title="20">    </a>
+<a class="sourceLine" id="cb3-21" title="21">    <span class="co"># Output: Plot of the requested variable against mpg ----</span></a>
+<a class="sourceLine" id="cb3-22" title="22">    <span class="kw">plotOutput</span>(<span class="st">&quot;mpgPlot&quot;</span>)</a>
+<a class="sourceLine" id="cb3-23" title="23">  )</a>
+<a class="sourceLine" id="cb3-24" title="24">))</a></code></pre></div>
 <p><strong>SERVER CODE</strong></p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">library</span>(shiny)</a>
 <a class="sourceLine" id="cb4-2" title="2"><span class="kw">library</span>(plotly)</a>
