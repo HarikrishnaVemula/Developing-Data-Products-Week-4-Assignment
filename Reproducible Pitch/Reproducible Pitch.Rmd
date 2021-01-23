@@ -3,14 +3,14 @@ title: "Reproducible Pitch"
 author: "Harikrishna Vemula"
 date: "1/19/2021"
 output:
-  ioslides_presentation: default
+  slidy_presentation: default
   html_document:
     number_sections: yes
     toc: yes
-  slidy_presentation: default
+  ioslides_presentation: default
 mode: selfcontained
 job: Reproducible Pitch Presentation
-subtitle: Variables and MPG
+subtitle: MPG vs Variables
 highlighter: highlight.js
 widgets: bootstrap
 ---
@@ -18,50 +18,83 @@ widgets: bootstrap
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+## ##
 
-This R Markdown document is made interactive using Shiny. Unlike the more traditional workflow of creating static reports, you can now create documents that allow your readers to change the assumptions underlying your analysis and see the results immediately. 
+**Introduction**
+This is Coursera's Week 4 Assignment of Developing Data Products course.
+I have created a shiny web application using R Studio and deployed it in shiny server inorder to review by peers. 
+I am also sharing the code in following github url for peers referance.
 
-To learn more, see [Interactive Documents](http://rmarkdown.rstudio.com/authoring_shiny.html).
+**Objective**
 
-## Inputs and Outputs
-
-You can embed Shiny inputs and outputs in your document. Outputs are automatically updated whenever inputs change.  This demonstrates how a standard R plot can be made interactive by wrapping it in the Shiny `renderPlot` function. The `selectInput` and `sliderInput` functions create the input widgets used to drive the plot.
-
-## Embedded Application
-
-It's also possible to embed an entire Shiny application within an R Markdown document using the `shinyAppDir` function. This example embeds a Shiny application located in another directory:
-
-
-Note the use of the `height` parameter to determine how much vertical space the embedded application should occupy.
-
-You can also use the `shinyApp` function to define an application inline rather then in an external directory.
-
-In all of R code chunks above the `echo = FALSE` attribute is used. This is to prevent the R code within the chunk from rendering in the document alongside the Shiny components.
+This shiny app demonstrating you how can we plot **mpg vs variables** from mtcars dataset.
 
 
 ## Analysis on mtcars Dataset
 
 ```{r}
+
 library(datasets)
-head(mtcars, 3)
+head(mtcars)
+
 ```
 
-## Conclusion and review
+## Code
 
-```r
-  formulaTextPoint <- reactive({
-    paste("mpg ~", "as.integer(", input$variable, ")")  })
+**UI CODE**
+
+```{r echo=TRUE, warning=FALSE, message=FALSE, eval=FALSE}
+library(shiny)
+
+shinyUI(fluidPage(
   
-  fit <- reactive({
-    lm(as.formula(formulaTextPoint()), data=mpgData)  })
-  ...
-  output$fit <- renderPrint({
-    summary(fit()) })
+  # Application title
+  titlePanel("MPG Vs Variables"),
   
+  sidebarPanel(
+    
+    selectInput("variable", "Variable:", 
+                c("Number of cylinders" = "cyl",
+                  "Number of forward gears" = "gear",
+                  "Transmission" = "am",
+                  "Gross horsepower" = "hp"))
+  ),
+  
+  mainPanel(
+    # Output: Formatted text for caption ----
+    h3(textOutput("caption")),
+    
+    # Output: Plot of the requested variable against mpg ----
+    plotOutput("mpgPlot")
+  )
+))
+```
+
+**SERVER CODE**
+```{r echo=TRUE, warning=FALSE, message=FALSE, eval=FALSE}
+library(shiny)
+library(plotly)
+mpgData <- mtcars
+mpgData$am <- factor(mpgData$am, labels = c("Automatic", "Manual"))
+shinyServer(function(input, output) {
+  
+  formulaText <- reactive({
+    paste("miles per gallon vs ", input$variable)
+  })
+  
+  output$caption <- renderText({
+    formulaText()
+  })
   output$mpgPlot <- renderPlot({
-    with(mpgData, {
-      plot(as.formula(formulaTextPoint()))
-      abline(fit(), col=2)
-    })  })
+    ggplot(mpgData, aes_string(y=input$variable, x="mpg")) + geom_point()
+  })
+  
+})
 ```
+
+## Conclusion and Review
+
+1) There are more **automatic** mpgs are with compare to **manual**
+2) mpg values starts from **4** for cylinders where as **3** for gears
+
 
